@@ -61,7 +61,9 @@ The script reads lines from a text file and generates multiple images per line w
 
     Create a text file named `input.txt` with each line containing a text that will become an image.
 
-2. **Run the Script**
+    For this you can use the code file `process_corpus.py` that reads all text files in a directory `/input` and creates the file `input.txt` by separating sentences using dots.
+
+3. **Run the Script**
 
     Use the script provided in the repository to generate images from the text file. The script reads lines from `input.txt` and generates images with varying styles. The generated images are saved in the `output_images` directory.
 
