@@ -13,15 +13,21 @@ def generate_images_from_file(input_file, output_dir, count_per_line=10):
         lines = [line.strip() for line in file.readlines()]
 
     # Different styles
-    font_paths = ["Alice-Regular.ttf", "AMERIKA_.ttf"]  # fonts
+    font_paths = [
+                ## Handwritten fonts
+                "Azbuka03_D.ttf",
+                "EuroScript.ttf",
+                ## Computer fonts 
+                #"Alice-Regular.ttf", 
+                #"AMERIKA_.ttf",
+                #"ft Regular.ttf"
+                ]  # fonts
     ## fonts should be in the same folder as main.py
 
-    font_sizes = [24, 32, 40, 48] 
+    #font_sizes = [24, 32, 40, 48] 
+    font_sizes = list(range(24, 48, 4))
     skewing_angles = [0, 5, 10, 15]
-    backgrounds = [0, 1, 2, 3]
-    ## if you face a problem with backgrounds, 
-    ## change the place of the background images in the virtual environment accordingly
-    blur_options = [True, False]
+    #blur_options = [True, False]
 
     # Iterate over each line and generate images with different styles
     for line in lines:
@@ -30,8 +36,7 @@ def generate_images_from_file(input_file, output_dir, count_per_line=10):
             font_path = random.choice(font_paths)
             font_size = random.choice(font_sizes)
             skewing_angle = random.choice(skewing_angles)
-            background_type = random.choice(backgrounds)
-            random_blur = random.choice(blur_options)
+            #random_blur = random.choice(blur_options)
 
             # Create a generator with the selected style
             generator = GeneratorFromStrings(
@@ -40,20 +45,19 @@ def generate_images_from_file(input_file, output_dir, count_per_line=10):
                 fonts=[font_path],
                 size=font_size,
                 skewing_angle=skewing_angle,
-                random_blur=random_blur,
-                background_type=background_type
+                #random_blur=random_blur,
             )
 
             # Generate and save the image
             for i, (img, lbl) in enumerate(generator):
                 # Create a unique filename for each image
-                output_path = os.path.join(output_dir, f"{font_size}_{skewing_angle}_{background_type}_{random_blur}_{random.randint(1, 1000)}.png")
+                output_path = os.path.join(output_dir, f"{font_path}_{skewing_angle}_{random.randint(1, 50000)}.png")
                 img.save(output_path)
                 print(f"Saved: {output_path}")
 
 # Example usage
 input_file = 'input.txt'
 output_dir = 'output_images'
-generate_images_from_file(input_file, output_dir)
+generate_images_from_file(input_file, output_dir, handwriting=True)
 
 print("Images generated successfully.")
